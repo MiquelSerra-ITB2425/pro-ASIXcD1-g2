@@ -197,9 +197,17 @@ Montaremos estos servicios por cada MV:
 - MV2 → Servidor web (Javier)
 - MV3 → Base de datos (Raul)
 - MV4 → DNS y Autenticación y gestión de usuarios “LDAP” (Alex)
-- MV5 → Backups (Aleix)
+- MV5 → Backups (Aleix)  
 
+
+### Investigar i comparar eficiència energètica amb altres proveïdors del núvol. Com els diferents proveïdors ofereixen solucions de CPD administrats per aquestes empreses i com donen cobertura als requeriments exposats anteriorment.  
 
 
 
 ## Implementación de servicios de audio y vídeo
+
+
+
+## Diseño e implementación de una base de datos
+
+<u>Diseño entidad-relación:</u>
