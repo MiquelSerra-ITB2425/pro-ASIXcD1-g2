@@ -1,6 +1,6 @@
 # Proyecto Transversal - ASIXcD1
 
-**Grupo:** 2
+**Grupo:** 2  
 **Alumnos:** Alex Jiménez, Miquel Serra, Javier Vericat, Raúl Juárez, Aleix Tomás.
 
 ## Índice
@@ -210,4 +210,153 @@ Montaremos estos servicios por cada MV:
 
 ## Diseño e implementación de una base de datos
 
-<u>Diseño entidad-relación:</u>
+**Diseño entidad-relación:**
+
+![er](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/er.jpg)  
+
+**Modelo relacional:**  
+
+DEPARTAMENTO (id, nombre, teléfono)  
+
+EMPLEADO (DNI, nombre, ap1, ap2, dirección, teléfono, idDep, idGrupo)  
+*idDep referencia a DEPARTAMENTO;*  
+*idGrupo referencia a GRUPO-NIVEL;*  
+
+GRUPO-NIVEL (id, salario, periodoPrueba, diasVacaciones)  
+
+**Implementación en mysql:**  
+
+*(para acceder a la db como root entramos con “mysql -u root -p” y la contraseña es “itb”).*  
+![image3](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image3.png)  
+
+*Los datos de salarios se han introducido en base a las tablas salariales de 2024. Los días de vacaciones y el periodo de prueba en base al “convenio colectivo estatal de empresas de consultoría, tecnologías de la información y estudios de mercado y de la opinión pública” publicado el 16/04/2025.*  
+
+Tablas salariales 2024:  
+![tablasalarial](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/tablasalarial.png) 
+
+Periodo de prueba:  
+![periodoprueba](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/periodoprueba.png)  
+
+Días vacaciones:  
+![vacaciones](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/vacaciones.png)  
+
+Insertamos datos para los departamentos y las categorías profesionales:  
+![image9](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image9.png)  
+
+Insertamos datos para cada empleado:  
+![image11](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image11.png)  
+
+Comprobamos que se han insertado correctamente los datos:  
+![image1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image1.png)  
+![image13](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image13.png)  
+
+Creamos un usuario para que los clientes puedan acceder a la base de datos con él y administrarla:  
+![image17](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image17.png)  
+
+Habilitamos “bind-address” para que cualquier IP pueda conectarse a la database:  
+![image8](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image8.png)  
+
+Y con esto cualquier cliente dentro del rango de IPs que permita el security group ya podrá conectarse a la base de datos.  
+![secgroupDB](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/secgroupDB.png)  
+
+## Sostenibilidad  
+
+### Identificación de recursos empleados.
+
+- **1. Ubicación sugerida del centro de operaciones**  
+  - Lugar: Parque Tecnológico del Vallès (Cerdanyola del Vallès, Barcelona)  
+  - Justificación:  
+    - Proximidad a Barcelona, con buena conexión de transporte público.  
+    - Infraestructuras ya preparadas para empresas tecnológicas.  
+    - Acceso a servicios energéticos sostenibles y fibra óptica de alta capacidad.  
+    - Presencia de otras empresas tecnológicas y centros de I+D.  
+
+  - Costes aproximados:  
+    - Alquiler de oficinas para 100 personas (~800 m²): 9.600 €/mes (12 €/m²)  
+    - Costes de electricidad (~0,18 €/kWh × 212 kWh × 30 días): ~1.145 €/mes  
+    - Costes operativos varios (internet, mantenimiento, climatización): ~2.000 €/mes  
+    - **Total mensual estimado:** 12.745 €  
+    - **Total anual estimado:** ~152.940 €  
+    
+- **Infraestructura IT desplegada**  
+
+| Tipo de servidor       | Función                  | Recursos asignados              |
+|------------------------|--------------------------|----------------------------------|
+| Servidor de Backups    | Almacenamiento y recuperación | 2 vCPU, 4 GB RAM, 30 GB (máx en cuenta estudiante AWS)   |
+| Servidor Vídeo+Audio   | Streaming multimedia      | 4 vCPU, 8 GB RAM, 30 GB      |
+| Servidor Base de Datos | MySQL                | 2 vCPU, 4 GB RAM, 30 GB    |
+| Servidor Web           | Hosting web y APIs        | 2 vCPU, 4 GB RAM, 30 GB    |
+| Servidor DNS y LDAP  | DNS y Autenticación y gestión de usuarios “LDAP”  | 2 vCPU, 4 GB RAM, 30 GB  |
+
+- **Infraestructura física**  
+
+| Dispositivo     | Cantidad | Modelo                             | Rack              |
+|------------------|----------|------------------------------------|--------------------|
+| Servidor físico  | 2        | Dell PowerEdge R750 (2U)           | Rack #1 (U5–U10)   |
+| Switches         | 2        | Cisco CBS350-24T-4G (1U)           | Rack #1 y #2       |
+| Patch panels     | 2        | Aiten Cat 6 FTP 24 puertos (1U)    | Rack #1 y #2       |
+| Enrutador        | 1        | Cisco C1131-8PWE                   | Rack #2            |
+| Consola KVM      | 1        | Genérica                           | Rack #2            |
+| SAI (UPS)        | 2        | APC Smart-UPS (~1,2 kWh)           | Ambos racks        |
+
+
+- **2. Estimar el consumo energético y la huella de carbono**
+  - Previsión de uso y tráfico mensual:  
+Funcionamiento estimado: 240 horas/mes (12 h/día, 5 días/semana)  
+Usuarios previstos: ~100  
+Tráfico estimado:  
+    - Web y BBDD: 1 TB  
+    - Vídeo y Audio: 3 TB  
+    - Total tráfico mensual: 4 TB  
+
+  - Cálculo del consumo energético y huella de carbono
+
+    | Componente              | Consumo mensual estimado (kWh) |
+    |-------------------------|-------------------------------:|
+    | Servidor físico 1       | 90                            |
+    | Servidor físico 2       | 75                            |
+    | Switches (2x)           | 10                            |
+    | Router                  | 5                             |
+    | Patch panels + KVM      | 2                             |
+    | SAIs (UPS)              | 10                            |
+    | Tráfico red (4 TB @5 W/GB) | 20                         |
+    | **Total**               | **212 kWh**                   |
+
+  - Emisiones estimadas (España, 2024):
+    - Factor conversión: 0,23 kg CO₂ / kWh
+    - Emisiones mensuales: 212 × 0,23 = 48,76 kg CO₂
+    - Emisiones anuales: 48,76 × 12 = 585,12 kg CO₂/año
+   
+### Propuesta de medidas de reducción u optimización:
+
+1. **Instalación de placas solares fotovoltaicas**
+Instalación recomendada: 12 kWp  
+Producción estimada en Barcelona: ~1.700 kWh/kWp/año → 20.400 kWh/año  
+Cobertura del consumo estimado (2.544 kWh/año): ~100%  
+Emisiones evitadas: 2.544 × 0,23 = 585,12 kg CO₂/año  
+Ahorro eléctrico anual: 2.544 × 0,18 €/kWh = 457,92 €
+
+2. **Gestión eficiente del agua**
+Grifos con sensores de infrarrojos  
+Sistemas de doble descarga en sanitarios  
+Reutilización de aguas grises en limpieza y riego
+
+3. **Optimización térmica y energética**
+Paneles ciegos en racks  
+Flujo de aire optimizado (frontal-trasero)  
+Aislamiento térmico en salas técnicas  
+Termostatos inteligentes y sensores de CO₂
+
+4. **Buenas prácticas IT**  
+Consolidación de máquinas virtuales  
+Autoscaling de recursos cloud  
+Apagado automático fuera del horario laboral  
+Migración de servicios a AWS Irlanda (>90% renovable)  
+
+5. **Sensibilización y formación**  
+Talleres y formaciones sobre eficiencia energética y sostenibilidad  
+Paneles informativos con consumo energético en tiempo real
+
+**Reparto del consumo energético mensual (kWh)**  
+
+![grafico1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/grafico1.png)
