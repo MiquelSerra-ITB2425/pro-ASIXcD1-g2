@@ -23,11 +23,11 @@ Además, de esta manera se mejora su seguridad física con protección contra in
 También será más fácil minimizar el impacto acústico hacia el entorno.
 
 - **Sistemes de climatització (aire condicionat). Nivells de temperatura, humitat i neteja de l’aire.**  
-  Sistema de climatización mixto:
-Sistema de free cooling indirecto (usando el aire exterior filtrado cuando las condiciones lo permitan).
-CRAC con refrigeración líquida para mantener la temperatura entre 18-22ºC y la humedad entre 45%-55%.
-Temperatura operativa: 20-24 °C.
-Sistema de filtrado HEPA para limpiar el aire de partículas que puedan afectar al servidor.
+  Sistema de climatización mixto:  
+  - Sistema de free cooling indirecto (usando el aire exterior filtrado cuando las condiciones lo permitan).
+  - CRAC con refrigeración líquida para mantener la temperatura entre 18-22ºC y la humedad entre 45%-55%.  
+Temperatura operativa: 20-24 °C.  
+Sistema de filtrado HEPA para limpiar el aire de partículas que puedan afectar al servidor.  
 
 - **Mesures per dificultar la identificació de la sala.**  
   Que no haya visión de fuera a dentro, señalización discreta para evitar la identificación de la sala.
@@ -68,28 +68,29 @@ U12 – U24: Espacio tapado con paneles ciegos para mejorar circulación de aire
 
 
 ### Infraestructura IT:
-○ Servidors: Número i tipus de model.  
+- **Servidors: Número i tipus de model**  
 Cantidad: 2 servidores físicos  
-Modelo: Dell PowerEdge R750 (2U)  
-○ Patch panels.  
+Modelo: Dell PowerEdge R750 (2U)
+- **Patch panels.**  
 Cantidad: 2 patch panels (1 por rack)  
 Modelo: Aiten Data Patch Panel 24 Puertos FTP Cat 6 (1U)  
-○ Switches.  
+- **Switches.**  
 Cantidad: 2 switches  
 Modelo: Cisco Business CBS350-24T-4G (1U)  
-○ Enrutador.  
+- **Enrutador.**  
 Cantidad: 1 router  
 Modelo: Cisco C1131-8PWE (1U)  
-○ Planells i diagrames de com estan distribuïts els racks amb els servidors, patch panels i switches.  
+- **Planells i diagrames de com estan distribuïts els racks amb els servidors, patch panels i switches.**
+
 ![racks](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/racks.png)
 
-Infraestructura elèctrica: 
-○ Sistemes d’alimentació redundant. 
-La instalación eléctrica se haría con una configuración N+1 para garantizar que siempre hay suministro eléctrico.
-Esta configuración consiste en que toda fuente de alimentación, transformadores etc tengan otra fuente de alimentación de respaldo para reducir drásticamente las posibilidades de quedarse sin corriente.
-○ SAIS. Càlcul de quantes bateries o components per tenir els servidors operatius sense corrent elèctric i temps que voleu de funcionament sense senyal elèctric en els servidors.
-Nuestro CPD tendrá que tener SAIS lo suficientemente grandes como para aguantar 1 hora, que se estima que es un tiempo razonable como para transicionar a los generadores de emergencia. 
-Tendrá dos SAI (uno por cada rack).
+### Infraestructura elèctrica: 
+- **Sistemes d’alimentació redundant.**  
+La instalación eléctrica se haría con una configuración N+1 para garantizar que siempre hay suministro eléctrico.  
+Esta configuración consiste en que toda fuente de alimentación, transformadores etc tengan otra fuente de alimentación de respaldo para reducir drásticamente las posibilidades de quedarse sin corriente.  
+- **SAIS.**    
+Nuestro CPD tendrá que tener SAIS lo suficientemente grandes como para aguantar 1 hora, que se estima que es un tiempo razonable como para transicionar a los generadores de emergencia.  
+Tendrá dos SAI (uno por cada rack).  
 Además los SAIS tienen la función de regular la tensión de la red, para no estropear el CPD con sobretensión.
 Falta saber cuánto consumen los CPDS para calcular la capacidad del SAIS
 
@@ -106,7 +107,97 @@ Falta saber cuánto consumen los CPDS para calcular la capacidad del SAIS
 
 Para 1 hora de funcionamiento sin corriente:  
 Energía necesaria = Potencia (W) × Tiempo (h)  
-Energía = 1750 W × 1 h = 1750 Wh = 1.75 kWh
+Energía = 1750 W × 1 h = 1750 Wh = 1.75 kWh  
+
+### Seguretat física i lògica:  
+- **Física:**  
+  - **Elements de control d’accés a incorporar en el CPD.**  
+En la planta subterránea pondremos acceso por:  
+    - Huella dactilar  
+    - Tarjeta de proximidad  
+Para tener así una doble seguridad en casa de atracos.  
+  - **Videovigilància.**  
+Cámaras de videovigilancia ip 24/7 y acceso remoto a las cámaras. Lo pondremos en la entrada y por el interior del CPD.  
+  - **Sistemes prevenció, detecció i d’extinció d’incendis.**  
+    - Sistemas de humo con sensores térmicos y ópticos.  
+    - Sistema d’extinció automàtica amb gas inert (FM-200), ideal para la protección para equipos electricos y electronicos, ademas nada de polvo, aceites ni humedad ni dañino para las personas y equipos.  
+    - Alarma sonora y visual.  
+  - **Vies d’evacuació.**  
+    - Salida de emergencia señalizada con iluminación autónoma.  
+    - Mapa de fuga visible y formación al personal con simulacros periódicos.  
+
+
+
+
+
+
+Diagrames, planells i fotografies de tota la seguretat física 
+incorporada. 
+En el plano de la planta subterranea se mostraran las siguientes cosas.
+Zonas de videovigilancia
+Punto de acceso y control
+Ruta de evacuación
+Posición de sensores y extintores
+
+
+
+
+
+
+- **Lògica:**  
+  - **Restricció d’accés per autorització.**  
+Cada sistema tindrà accés per rols, amb autenticació multifactor (MFA). Només el personal tècnic autoritzat podrà accedir a determinades màquines o configuracions crítiques.  
+  - **Firewalls.**
+Firewall de nueva generación (NGFW), como Fortinet, con inspección profunda de paquetes.
+  - **Monitorizació.**
+Sistemas como Zabbix para controlar servidores, tráfico y estado de servicios.
+Alertas automáticas por correo o mensajería ante anomalías.
+    - **Còpies de seguretat/Backups.** 
+Backups diarios en discos locales redundantes y en Amazon S3 (CPD en la nube).
+Estrategia 3-2-1: 3 copias, 2 formatos distintos, 1 fuera del edificio.
+  - **RAIDs.**  
+Sistemas configurados con RAID 10, ofreciendo redundancia y altas prestaciones de escritura y lectura.  
+
+- **Prevenció de riscos laborals:**  
+  - **Mesures aplicades en matèria de prevenció de RRLL en el CPD**  
+    - Señalización adecuada de salidas, materiales peligrosos y normas de emergencia.  
+    - Extintores manuales y alfombras antielectrostáticas.  
+    - Iluminación de emergencia y sistema de alarma.  
+    - EPI (Equipos de Protección Individual): guantes, zapatos antideslizantes, chaleco.  
+    - Formación obligatoria para el personal técnico en riesgos eléctricos y protocolos de evacuación.  
+
+### Sostenibilitat:
+- **Com optimitzar el consum d’energia.**  
+  - Virtualizar servidores para reducir el número de máquinas físicas  
+  - Sistemas de monitorización como el Zabbix  
+  - Consolidación de cargas para maximizar el uso de los recursos  
+- **Ús d’energia verda pel CPD.**  
+  El CPD se conectará preferentemente a fuentes de energía renovable, como la fotovoltaica, a través de proveedores verdes o con una instalación propia de placas solares. Esto permitirá alimentar a los sistemas con energía limpia y reducir drásticamente la huella de carbono. 
+- **Estalvi en longitud de cablejat.**  
+  - Reducir el material necesario.  
+  - Minimizar pérdidas energéticas por distancia.  
+  - Mejorar la refrigeración pasiva en el espacio técnico.  
+
+- **Sistemes de circulació d’aire que aprofitin condicions naturals.**  
+  - Sistemas de free cooling, que utilizan aire exterior cuando es más frío que el interior.  
+  - Circulación de aire canalizada y pasiva con sistemas de sobrepresión.  
+  - Climatización con sistemas HVAC de alta eficiencia y sensores de temperatura y humedad inteligentes.  
+- **Parada d’equips de comunicacions quan no hi ha càrrega.**  
+  - Switches, equipos de r	ed y servidores secundarios cuando no haya carga o fuera de horas punta.  
+  - Sistemas de comunicación redundantes no esenciales en horas de bajo uso.  
+- **Equips de baix consum energètic.**  
+  - Servidores con fuentes de alimentación de alto rendimiento. 
+  - Discos SSD (más eficientes que HDD).  
+  - Racks y componentes con mejor ventilación y menor necesidad de refrigeración activa.  
+
+### Implementació del CPD al núvol AWS amb els serveis utilitzats (mínim de 4 - el serveis d'àudio, vídeo i bases de dades es valoren en els altres blocs).  
+
+Montaremos estos servicios por cada MV:  
+- MV1 → Servidor de vídeo + audio (Miquel)
+- MV2 → Servidor web (Javier)
+- MV3 → Base de datos (Raul)
+- MV4 → DNS y Autenticación y gestión de usuarios “LDAP” (Alex)
+- MV5 → Backups (Aleix)
 
 
 
