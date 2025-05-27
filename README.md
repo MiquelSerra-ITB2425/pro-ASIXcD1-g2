@@ -12,8 +12,9 @@
 6. [Conclusión¿?](#conclusión)
 
 ## Introducción
-lorem  lorem  
-fds  
+Este proyecto simula la instalación de un pequeño CPD en el cual hemos decidido montar servicios de gestión centralizada de usuarios (LDAP), DNS, backups y web; además de los 3 servicios obligatorios (vídeo, audio y base de datos).
+
+Cada miembro del grupo se ha encargado de montar una instancia de AWS en la que operan los servicios mencionados, puedes ver [aquí](#Implementació-del-CPD-al-núvol-AWS-amb-els-serveis-utilitzats-(mínim-de-4---el-serveis-d'àudio,-vídeo-i-bases-de-dades-es-valoren-en-els-altres-blocs).) la distribución de servicios por cada miembro del grupo.
 
 ## Propuesta de CPD
 ### Ubicación física
