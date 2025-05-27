@@ -8,8 +8,9 @@
 2. [Propuesta de CPD](#1-propuesta-de-cpd)
 3. [Implementación de servicios de audio y vídeo](#2-implementación-de-servicios-de-audio-y-vídeo)
 4. [Implementación y diseño de una base de datos](#3-diseño-e-implementación-de-una-base-de-datos)
-5. [Sostenibilidad](#4-sostenibilidad)
-6. [Conclusión](#conclusión)
+5. [Otros servicios](#4-otros-servicios)
+6. [Sostenibilidad](#5-sostenibilidad)
+7. [Conclusión](#conclusión)
 
 ## Introducción
 Este proyecto simula la instalación de un pequeño CPD, en el cual hemos desplegado servicios de gestión centralizada de usuarios (LDAP), DNS, backups y servidor web; además de los tres servicios obligatorios: vídeo, audio y base de datos.
@@ -211,8 +212,120 @@ Microsoft Azure también ha marcado objetivos muy ambiciosos en materia de soste
 | **Azure**        | 100% (2025)        | Alta (refrigeración líquida) | *Free cooling* + líquida | Azure Monitor       | *Carbon negative* (2030) |
 
 
-## 2. Implementación de servicios de audio y vídeo
+## 2. Implementación de servicios de audio y vídeo  
 
+### 2.1. Instalación de servidor de audio
+
+*sudo apt update  
+sudo apt install -y icecast2 darkice vnstat iftop iperf3 ufw* 
+
+No cambio nada de la config por defecto de icecast 
+![str1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str01.png)  
+
+Cambio  el kernel  
+![kernel1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/kernel1.png)  
+![kernel2](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/kernel2.png)  
+
+#### Activar Icecast2
+*sudo sed -i 's/ENABLE=false/ENABLE=true/' /etc/default/icecast2*
+
+#### Configuració DarkIce
+*[general]  
+duration        = 0  
+bufferSecs      = 5  
+reconnect       = yes*  
+
+*[input]  
+device          = default  
+sampleRate      = 44100  
+bitsPerSample   = 16  
+channel         = 2*  
+
+*[icecast2-0]  
+bitrateMode     = vbr  
+bitrate         = 128  
+server          = localhost  
+port            = 8000  
+password        = sourcepass  
+mountPoint      = live.mp3  
+name            = Stream d'àudio*  
+
+Añado quality y format  
+![str3](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str03.png)  
+
+#### Obrim els ports del firewall  
+*sudo ufw allow 8000/tcp  
+sudo ufw allow 22/tcp*
+
+#### Iniciem els serveis  
+*sudo systemctl restart icecast2  
+sudo systemctl enable icecast2*
+
+
+Instalar ffmpeg  
+creo un script para que el mp3 funcione en bucle
+![str4](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str04.png)  
+![str5](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str05.png)  
+
+SERVIDOR:
+*sudo darkice -c /etc/darkice.cfg*  
+uno de los dos: 
+- *ffmpeg -re -i tralalerito.mp3 -vn -c:a libmp3lame -b:a 128k -content_type audio/mpeg   -f mp3 icecast://source:hackme@54.236.209.174:8000/live.mp3*  
+
+- ./audio.sh tralalerito.mp3 
+
+CLIENTE:
+http://54.236.209.174:8000/live.mp3
+
+### 2.2. Instalación de servidor de vídeo  
+
+#### Instal·lació GStreamer i eines de vídeo  
+*sudo apt update  
+sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-base \  
+  gstreamer1.0-plugins-good gstreamer1.0-plugins-bad \  
+  gstreamer1.0-plugins-ugly gstreamer1.0-libav \  
+  gstreamer1.0-alsa gstreamer1.0-pulseaudio \  
+  vnstat iftop iperf3 v4l-utils*  
+
+#### Instal·lació GStreamer finalitzada  
+**Obrint port per RTP**  
+*sudo ufw allow 5000/udp  
+sudo ufw allow 5004/udp  
+sudo ufw allow 22/tcp*  
+
+Cambio también los security groups en aws para abrir estos puertos  
+![str6](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str06.png)  
+
+Cambio config de icecast para añadir un mount point  
+![str7](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str07.png)  
+
+reinicio icecast  
+ejecuto:  
+*ffmpeg -re -i popeye.mp4   -c:v libvpx -b:v 800k   -c:a libvorbis -b:a 128k   -f webm   -content_type video/webm   icecast://source:hackme@54.236.209.174:8000/stream.webm*  
+accedo a la web “http://54.236.209.174:8000/stream.webm”  
+![str8](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str08.png)  
+
+script para vídeo  
+![str9](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str09.png)  
+
+ejecutar *./video.sh popeye.mp4*  
+
+#### 2.3. Comprobación del ancho de banda con iperf3  
+1. Instal·lació:  
+*sudo apt update  
+sudo apt install -y iperf3*  
+
+2. Per fer la prova al servidor (receptor): *iperf3 -s*  
+3. Sortida esperada: *Server listening on 5201*  
+![str10](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str10.png)  
+
+4. Al client (emissor): Substitueix IP_SERVIDOR per l’adreça IP del servidor:  
+*iperf3 -c IP_SERVIDOR*  
+5. Sortida esperada:  
+Connecting to host IP_SERVIDOR, port 5201  
+*[ ID] Interval           Transfer     Bandwidth  
+[  5]   0.00-1.00   sec   112 MBytes   938 Mbits/sec*  
+![str11](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str11.png)  
 
 
 ## 3. Diseño e implementación de una base de datos
@@ -266,7 +379,192 @@ Habilitamos “bind-address” para que cualquier IP pueda conectarse a la datab
 Y con esto cualquier cliente dentro del rango de IPs que permita el security group ya podrá conectarse a la base de datos.  
 ![secgroupDB](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/secgroupDB.png)  
 
-## 4. Sostenibilidad  
+## 4. Otros servicios  
+
+### 4.1. 🌐 Servidor web (NGINX)  
+
+Instalamos Nginx:  
+![web1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web1.png)  
+
+El objetivo inicial era desplegar un servidor web accesible por HTTPS en una instancia EC2 de AWS, utilizando Nginx como servidor web para alojar una web HTML que incluía audio y vídeo en streaming.  
+
+Durante el desarrollo, detectamos que el servidor de streaming (que emitía audio y vídeo en http://54.236.209.174:8000/) no soportaba HTTPS, lo que generaba bloqueos por contenido mixto en los navegadores modernos al intentar integrarlo en una página servida por HTTPS.  
+
+Para mantener la compatibilidad con los streams y evitar bloqueos, decidimos servir toda la web en HTTP, desactivando el redireccionamiento a HTTPS. De esta forma, tanto el contenido web como el streaming funcionan correctamente. Finalmente, quedó de esta manera la configuración del Nginx:  
+![web2](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web2.png)  
+
+Y este es el resultado de la web después de aplicar el html y el css:  
+![web3](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web3.png)  
+![web4](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web4.png)  
+![web5](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web5.png)  
+![web6](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web6.png)  
+![web7](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web7.png)  
+![web8](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web8.png)  
+![web9](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/web9.png)  
+
+### 4.2. 👥 Servidor DNS + autenticación y gestión de usuarios (LDAP)  
+
+#### 🔹 Configuración del Servidor DNS (BIND9)
+
+**Instalación de BIND9**
+
+```bash
+sudo apt-get update
+sudo apt-get install bind9
+```
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns01.png)  
+
+**Archivos de configuración clave**
+
+- `/etc/bind/named.conf`: Archivo principal que incluye otros archivos de configuración.
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns02.png)  
+- `/etc/bind/named.conf.options`: Define opciones globales como los forwarders (reenviadores).
+- `/etc/bind/named.conf.local`: Define las zonas DNS locales.
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns03.png)  
+- Archivos de zona: `db.asixcd-g2` y `db.172.16.3`, que contienen registros directos e inversos.
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns04.png)  
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns05.png)  
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns06.png)  
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns07.png)  
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns08.png)  
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns09.png)  
+
+
+**Ejemplo de `named.conf.options`**
+
+```
+options {
+    directory "/var/cache/bind";
+
+    forwarders {
+        8.8.8.8;
+        1.1.1.1;
+    };
+
+    dnssec-validation auto;
+    auth-nxdomain no;
+    listen-on-v6 { any; };
+};
+```
+
+
+**Ejemplo de `named.conf.local`**
+
+```
+zone "asixcd-g2.local" {
+    type master;
+    file "/etc/bind/db.asixcd-g2";
+};
+
+zone "3.16.172.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.172.16.3";
+};
+```
+
+
+**Ejemplo de archivo `db.asixcd-g2`**
+
+```
+$TTL    604800
+@       IN      SOA     dns.asixcd-g2.local. root.asixcd-g2.local. (
+                          2         ; Serial
+                     604800         ; Refresh
+                      86400         ; Retry
+                    2419200         ; Expire
+                     604800 )       ; Negative Cache TTL
+
+@       IN      NS      dns.asixcd-g2.local.
+dns     IN      A       172.16.3.254
+web     IN      A       172.16.4.74
+vidaud  IN      A       172.16.1.112
+db      IN      A       172.16.2.222
+backup  IN      A       172.16.5.77
+```
+
+
+**Ejemplo de archivo `db.172.16.3`**
+
+```
+$TTL    604800
+@       IN      SOA     dns.asixcd-g2.local. root.asixcd-g2.local. (
+                          2         ; Serial
+                     604800         ; Refresh
+                      86400         ; Retry
+                    2419200         ; Expire
+                     604800 )       ; Negative Cache TTL
+
+@       IN      NS      dns.asixcd-g2.local.
+254     IN      PTR     dns.asixcd-g2.local.
+```
+
+
+**Reiniciar el servicio DNS**
+
+```bash
+sudo systemctl restart bind9
+```
+
+---
+
+### Configuración de Autenticación Centralizada con LDAP
+
+**Instalación del cliente LDAP**
+
+```bash
+sudo apt-get update
+sudo apt-get install nslcd libnss-ldap libpam-ldap ldap-utils
+```
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns10.png)  
+
+
+**Archivo `/etc/nslcd.conf`**
+
+```
+uri ldap://172.16.3.254
+base dc=asixcd-g2,dc=local
+binddn cn=admin,dc=asixcd-g2,dc=local
+bindpw itbitb
+```
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns11.png)  
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns12.png)  
+
+
+**Reiniciar el servicio `nslcd`**
+
+```bash
+sudo systemctl restart nslcd
+```
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns13.png)  
+
+
+**Ejemplo de archivo `usuario.ldif`**
+
+```
+dn: uid=josep,ou=People,dc=asixcd-g2,dc=local
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: josep
+sn: Josep
+cn: Josep Vidaud
+userPassword: {CRYPT}itbitb
+uidNumber: 10001
+gidNumber: 10000
+homeDirectory: /home/josep
+loginShell: /bin/bash
+```
+
+
+**Importar el usuario al servidor LDAP**
+
+```bash
+ldapadd -x -D "cn=admin,dc=asixcd-g2,dc=local" -W -f usuario.ldif
+```
+![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns14.png)  
+
+
+## 5. Sostenibilidad  
 
 ### Identificación de recursos empleados.
 
