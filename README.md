@@ -7,8 +7,8 @@
 1. [Introducción](#introducción)
 2. [Propuesta de CPD](#propuesta-de-cpd)
 3. [Implementación de servicios de audio y vídeo](#implementación-de-servicios-de-audio-y-vídeo)
-4. [Implementación y diseño de una base de datos](#impacto-ambiental)
-5. [Sostenibilidad](#propuestas-para-minimizar-los-impactos-ambientales)
+4. [Implementación y diseño de una base de datos](#diseño-e-implementación-de-una-base-de-datos)
+5. [Sostenibilidad](#sostenibilidad)
 6. [Conclusión¿?](#conclusión)
 
 ## Introducción
