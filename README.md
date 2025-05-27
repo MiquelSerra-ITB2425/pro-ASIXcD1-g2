@@ -9,7 +9,7 @@
 3. [Implementación de servicios de audio y vídeo](#2-implementación-de-servicios-de-audio-y-vídeo)
 4. [Implementación y diseño de una base de datos](#3-diseño-e-implementación-de-una-base-de-datos)
 5. [Sostenibilidad](#4-sostenibilidad)
-6. [Conclusión¿?](#conclusión)
+6. [Conclusión](#conclusión)
 
 ## Introducción
 Este proyecto simula la instalación de un pequeño CPD, en el cual hemos desplegado servicios de gestión centralizada de usuarios (LDAP), DNS, backups y servidor web; además de los tres servicios obligatorios: vídeo, audio y base de datos.
