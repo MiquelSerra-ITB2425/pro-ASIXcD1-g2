@@ -204,6 +204,12 @@ Google Cloud ya funciona con energía 100% renovable desde 2017 y ha sido neutro
 **Microsoft Azure**  
 Microsoft Azure también ha marcado objetivos muy ambiciosos en materia de sostenibilidad: quiere ser carbon negative en 2030 y eliminar todas sus emisiones históricas para 2050. Sus centros de datos utilizan refrigeración líquida y energía renovable, con una gran eficiencia en el diseño térmico. Ofrece servicios de apagado automático de instancias mediante Azure Monitor y herramientas como Power Automate para gestionar la carga de manera inteligente.  
 
+| Proveedor        | Energía renovable  | Eficiencia energética        | Refrigeración            | Automatización      | Compromiso ambiental     |
+| ---------------- | ------------------ | ---------------------------- | ------------------------ | ------------------- | ------------------------ |
+| **AWS**          | 100% (2025)        | Alta (Graviton, PUE <1.2)    | *Free cooling*           | CloudWatch + Lambda | Compensación de CO₂      |
+| **Google Cloud** | 100% (actualmente) | Muy alta (IA, PUE <1.1)      | Optimizada por IA        | Stackdriver         | Neutro desde 2007        |
+| **Azure**        | 100% (2025)        | Alta (refrigeración líquida) | *Free cooling* + líquida | Azure Monitor       | *Carbon negative* (2030) |
+
 
 ## 2. Implementación de servicios de audio y vídeo
 
@@ -360,4 +366,13 @@ Paneles informativos con consumo energético en tiempo real
 
 **Reparto del consumo energético mensual (kWh)**  
 
-![grafico1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/grafico1.png)
+![grafico1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/grafico1.png)  
+
+
+## Conclusión  
+
+En este proyecto hemos desplegado un CPD virtual distribuido sobre AWS, en el que hemos implementado servicios de gestión centralizada de usuarios (LDAP), resolución de nombres (DNS), base de datos MySQL con copias de seguridad automatizadas mediante crontab y streaming de vídeo y audio reproducidos en una web configurada con NGINX.  
+
+Inicialmente, para conectar las máquinas virtuales habríamos preferido una topología en estrella, donde una de las instancias actuara como router central. Sin embargo, debido al funcionamiento de las VPC de AWS y las restricciones de sus cuentas educativas eso no ha sido posible y hemos optado por una topología en malla, en la que cada MV está conectada directamente con las demás.  
+
+En definitiva, el proyecto nos ha ayudado a comprender qué elementos son necesarios para que un CPD funcione correctamente, desde la infraestructura física y lógica hasta la gestión de servicios en red. Además, nos ha ayudado a mejorar nuestra capacidad de trabajo en equipo y de toma de decisiones conjunta.
