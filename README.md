@@ -1,7 +1,7 @@
 # Proyecto Transversal - ASIXcD1
 
 **Grupo:** 2  
-**Alumnos:** Alex Jiménez, Miquel Serra, Javier Vericat, Raúl Juárez, Aleix Tomás.
+**Equipo:** Alex Jiménez, Miquel Serra, Javier Vericat, Raúl Juárez, Aleix Tomás.
 
 ## Índice
 1. [Introducción](#introducción)
@@ -12,9 +12,9 @@
 6. [Conclusión¿?](#conclusión)
 
 ## Introducción
-Este proyecto simula la instalación de un pequeño CPD en el cual hemos decidido montar servicios de gestión centralizada de usuarios (LDAP), DNS, backups y web; además de los 3 servicios obligatorios (vídeo, audio y base de datos).
+Este proyecto simula la instalación de un pequeño CPD, en el cual hemos desplegado servicios de gestión centralizada de usuarios (LDAP), DNS, backups y servidor web; además de los tres servicios obligatorios: vídeo, audio y base de datos.
 
-Cada miembro del grupo se ha encargado de montar una instancia de AWS en la que operan los servicios mencionados, puedes ver [aquí](#implementació-del-cpd-al-núvol-aws-amb-els-serveis-utilitzats) la distribución de servicios por cada miembro del grupo.
+Cada miembro del grupo se ha encargado de configurar una instancia de AWS en la que operan los servicios mencionados. Puedes consultar [aquí](#implementació-del-cpd-al-núvol-aws-amb-els-serveis-utilitzats) la distribución de servicios asignados a cada integrante.
 
 ## 1. Propuesta de CPD
 ### Ubicación física
@@ -127,23 +127,15 @@ Cámaras de videovigilancia ip 24/7 y acceso remoto a las cámaras. Lo pondremos
     - Salida de emergencia señalizada con iluminación autónoma.  
     - Mapa de fuga visible y formación al personal con simulacros periódicos.  
 
+  - **Diagrames, planells i fotografies de tota la seguretat física 
+incorporada.**  
+En el plano de la planta subterranea se mostrará lo siguiente:  
+    - Cámaras de videovigilancia.  
+    - Acceso mediante huella dactilar.  
+    - Salida de emergencia.  
+    - Posición de sensores y extintores.  
 
-
-
-
-
-Diagrames, planells i fotografies de tota la seguretat física 
-incorporada. 
-En el plano de la planta subterranea se mostraran las siguientes cosas.
-Zonas de videovigilancia
-Punto de acceso y control
-Ruta de evacuación
-Posición de sensores y extintores
-
-
-
-
-
+![seguridad](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/plano-seguridad.png)  
 
 - **Lògica:**  
   - **Restricció d’accés per autorització.**  
@@ -201,8 +193,16 @@ Montaremos estos servicios por cada MV:
 - MV5 → Backups (Aleix)  
 
 
-### Investigar i comparar eficiència energètica amb altres proveïdors del núvol. Com els diferents proveïdors ofereixen solucions de CPD administrats per aquestes empreses i com donen cobertura als requeriments exposats anteriorment.  
+### Investigar i comparar eficiència energètica amb altres proveïdors del núvol.  
 
+**Amazon Web Services (AWS)**  
+AWS ha anunciado su compromiso de utilizar energía 100% renovable antes de 2025. Sus centros de datos utilizan tecnologías como los procesadores Graviton, que ofrecen una mejor eficiencia energética, y sistemas de refrigeración pasiva como el free cooling. Además, permiten gestionar la carga de manera automática con servicios como CloudWatch y Lambda, lo que facilita detener instancias sin uso y optimizar el consumo. También ofrece servicios de almacenamiento como EBS y S3, que ayudan a reducir la dependencia de infraestructura física.  
+
+**Google Cloud Platform (GCP)**  
+Google Cloud ya funciona con energía 100% renovable desde 2017 y ha sido neutro en emisiones desde 2007. Utiliza inteligencia artificial para optimizar la climatización de sus centros de datos, reduciendo el consumo energético hasta un 30%. Con un PUE muy bajo (entre 1.1 y 1.2), demuestra una gran eficiencia energética. A nivel funcional, ofrece servicios similares a AWS para la virtualización, monitorización y automatización de recursos, destacando Stackdriver para el control en tiempo real.  
+
+**Microsoft Azure**  
+Microsoft Azure también ha marcado objetivos muy ambiciosos en materia de sostenibilidad: quiere ser carbon negative en 2030 y eliminar todas sus emisiones históricas para 2050. Sus centros de datos utilizan refrigeración líquida y energía renovable, con una gran eficiencia en el diseño térmico. Ofrece servicios de apagado automático de instancias mediante Azure Monitor y herramientas como Power Automate para gestionar la carga de manera inteligente.  
 
 
 ## 2. Implementación de servicios de audio y vídeo
@@ -260,7 +260,7 @@ Habilitamos “bind-address” para que cualquier IP pueda conectarse a la datab
 Y con esto cualquier cliente dentro del rango de IPs que permita el security group ya podrá conectarse a la base de datos.  
 ![secgroupDB](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/secgroupDB.png)  
 
-## 5. Sostenibilidad  
+## 4. Sostenibilidad  
 
 ### Identificación de recursos empleados.
 
