@@ -5,10 +5,10 @@
 
 ## Índice
 1. [Introducción](#introducción)
-2. [Propuesta de CPD](#propuesta-de-cpd)
-3. [Implementación de servicios de audio y vídeo](#implementación-de-servicios-de-audio-y-vídeo)
-4. [Implementación y diseño de una base de datos](#diseño-e-implementación-de-una-base-de-datos)
-5. [Sostenibilidad](#sostenibilidad)
+2. [Propuesta de CPD](#1-propuesta-de-cpd)
+3. [Implementación de servicios de audio y vídeo](#2-implementación-de-servicios-de-audio-y-vídeo)
+4. [Implementación y diseño de una base de datos](#3-diseño-e-implementación-de-una-base-de-datos)
+5. [Sostenibilidad](#4-sostenibilidad)
 6. [Conclusión¿?](#conclusión)
 
 ## Introducción
@@ -16,7 +16,7 @@ Este proyecto simula la instalación de un pequeño CPD en el cual hemos decidid
 
 Cada miembro del grupo se ha encargado de montar una instancia de AWS en la que operan los servicios mencionados, puedes ver [aquí](#implementació-del-cpd-al-núvol-aws-amb-els-serveis-utilitzats) la distribución de servicios por cada miembro del grupo.
 
-## Propuesta de CPD
+## 1. Propuesta de CPD
 ### Ubicación física
 - **Situación física de la sala del edificio.**  
   La ubicación del CPD será en una planta subterránea, ya que tendrá una temperatura constante durante todo el año y permite aprovechar mejor los sistemas de refrigeración natural.
@@ -205,11 +205,11 @@ Montaremos estos servicios por cada MV:
 
 
 
-## Implementación de servicios de audio y vídeo
+## 2. Implementación de servicios de audio y vídeo
 
 
 
-## Diseño e implementación de una base de datos
+## 3. Diseño e implementación de una base de datos
 
 **Diseño entidad-relación:**
 
@@ -260,7 +260,7 @@ Habilitamos “bind-address” para que cualquier IP pueda conectarse a la datab
 Y con esto cualquier cliente dentro del rango de IPs que permita el security group ya podrá conectarse a la base de datos.  
 ![secgroupDB](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/secgroupDB.png)  
 
-## Sostenibilidad  
+## 5. Sostenibilidad  
 
 ### Identificación de recursos empleados.
 
