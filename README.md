@@ -214,7 +214,7 @@ Microsoft Azure también ha marcado objetivos muy ambiciosos en materia de soste
 
 ## 2. Implementación de servicios de audio y vídeo  
 
-### 2.1. Instalación de servidor de audio
+### 2.1. 🎧 Instalación de servidor de audio
 
 *sudo apt update  
 sudo apt install -y icecast2 darkice vnstat iftop iperf3 ufw* 
@@ -277,7 +277,7 @@ uno de los dos:
 CLIENTE:
 http://54.236.209.174:8000/live.mp3
 
-### 2.2. Instalación de servidor de vídeo  
+### 2.2. 📹 Instalación de servidor de vídeo  
 
 #### Instal·lació GStreamer i eines de vídeo  
 *sudo apt update  
@@ -328,7 +328,7 @@ Connecting to host IP_SERVIDOR, port 5201
 ![str11](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/str11.png)  
 
 
-## 3. Diseño e implementación de una base de datos
+## 3. 💽 Diseño e implementación de una base de datos
 
 **Diseño entidad-relación:**
 
@@ -563,8 +563,12 @@ ldapadd -x -D "cn=admin,dc=asixcd-g2,dc=local" -W -f usuario.ldif
 ```
 ![dns-image](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/dns14.png)  
 
+### 4.3. 🔐 Servicio de backups  
 
-## 5. Sostenibilidad  
+
+
+
+## 5. 🌳 Sostenibilidad  
 
 ### Identificación de recursos empleados.
 
