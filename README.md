@@ -197,7 +197,7 @@ Montaremos estos servicios por cada MV:
 - MV1 → Servidor de vídeo + audio (Miquel)
 - MV2 → Servidor web (Javier)
 - MV3 → Base de datos (Raul)
-- MV4 → DNS y Autenticación y gestión de usuarios “LDAP” (Alex)
+- MV4 → DNS + autenticación y gestión de usuarios “LDAP” (Alex)
 - MV5 → Backups (Aleix)  
 
 
