@@ -14,7 +14,7 @@
 ## Introducción
 Este proyecto simula la instalación de un pequeño CPD en el cual hemos decidido montar servicios de gestión centralizada de usuarios (LDAP), DNS, backups y web; además de los 3 servicios obligatorios (vídeo, audio y base de datos).
 
-Cada miembro del grupo se ha encargado de montar una instancia de AWS en la que operan los servicios mencionados, puedes ver [aquí](#Implementació-del-CPD-al-núvol-AWS-amb-els-serveis-utilitzats-(mínim-de-4---el-serveis-d'àudio,-vídeo-i-bases-de-dades-es-valoren-en-els-altres-blocs).) la distribución de servicios por cada miembro del grupo.
+Cada miembro del grupo se ha encargado de montar una instancia de AWS en la que operan los servicios mencionados, puedes ver [aquí](#Implementació-del-CPD-al-núvol-AWS-amb-els-serveis-utilitzats.) la distribución de servicios por cada miembro del grupo.
 
 ## Propuesta de CPD
 ### Ubicación física
@@ -191,7 +191,7 @@ Sistemas configurados con RAID 10, ofreciendo redundancia y altas prestaciones d
   - Discos SSD (más eficientes que HDD).  
   - Racks y componentes con mejor ventilación y menor necesidad de refrigeración activa.  
 
-### Implementació del CPD al núvol AWS amb els serveis utilitzats (mínim de 4 - el serveis d'àudio, vídeo i bases de dades es valoren en els altres blocs).  
+### Implementació del CPD al núvol AWS amb els serveis utilitzats.
 
 Montaremos estos servicios por cada MV:  
 - MV1 → Servidor de vídeo + audio (Miquel)
