@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro-AsixcD-g2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.06);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #ff6b35;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+            background: rgba(255, 107, 53, 0.08);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 16px;
+            right: 16px;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            border-radius: 1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 40%, #2a1810 70%, #3d2817 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.2) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            color: #000000;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 400;
+            line-height: 1.6;
+            color: #000000;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        section:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Team Grid Layout */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-grid-bottom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 48px rgba(255, 107, 53, 0.15);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        /* Team Cards */
+        .team-card {
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 64px rgba(255, 107, 53, 0.2);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+        }
+
+        .ceo-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #1a202c;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .team-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #ff6b35;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Multimedia Section */
+        .multimedia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .media-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            text-align: center;
+        }
+
+        .media-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 64px rgba(255, 107, 53, 0.15);
+        }
+
+        .media-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.2);
+        }
+
+        .media-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+        }
+
+        .media-card p {
+            color: #718096;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Audio Player Styles */
+        .audio-player {
+            width: 100%;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .audio-player:focus-within {
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .audio-player audio {
+            width: 100%;
+            height: 40px;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1rem;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Video Player Styles */
+        .video-placeholder {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .video-placeholder:hover {
+            border-color: #ff6b35;
+            background: linear-gradient(135deg, #fff5f2 0%, #ffe6e0 100%);
+            color: #ff6b35;
+        }
+
+        .video-placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .video-placeholder p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        /* Video player when URL is added */
+        .video-player {
+            width: 100%;
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .video-player:hover {
+            border-color: #ff6b35;
+            box-shadow: 0 8px 32px rgba(255, 107, 53, 0.2);
+        }
+
+        .video-player video,
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #a0aec0;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            color: #a0aec0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .hero {
+                min-height: 80vh;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .multimedia-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .card,
+            .team-card,
+            .media-card {
+                padding: 2rem;
+            }
+
+            .video-placeholder {
+                height: 220px;
+            }
+
+            .video-player {
+                height: 220px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <a href="#inicio" class="logo">
+                <div class="logo-icon">P</div>
+                Pro-AsixcD-g2
+            </a>
+            <ul class="nav-links">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#sobre-nosotros">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#multimedia">Multimedia</a></li>
+                <li><a href="#equipo">Equipo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <canvas class="particles-canvas" id="particles"></canvas>
+        <div class="hero-content">
+            <h1>Pro-AsixcD-g2</h1>
+            <p>Innovación tecnológica y excelencia académica. Desarrollamos soluciones avanzadas en administración de sistemas informáticos y redes.</p>
+            <a href="#sobre-nosotros" class="cta-button">
+                Descubre Más
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 13l3 3 7-7"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <section id="sobre-nosotros">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Sobre Nosotros</h2>
+                <p>Un equipo comprometido con la innovación y la excelencia en el desarrollo de soluciones tecnológicas</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card fade-in">
+                    <h3>🎯 Nuestra Misión</h3>
+                    <p>Desarrollar soluciones tecnológicas innovadoras que contribuyan al aprendizaje y desarrollo de competencias en administración de sistemas informáticos y redes, estableciendo nuevos estándares de calidad en el ámbito educativo.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>🚀 Nuestra Visión</h3>
+                    <p>Convertirnos en un referente de excelencia académica y profesional, demostrando que los estudiantes pueden crear proyectos de alto impacto que generen valor real en la industria tecnológica.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>⭐ Nuestros Valores</h3>
+                    <p>Compromiso, innovación, trabajo en equipo, responsabilidad y excelencia académica son los pilares fundamentales que guían cada aspecto de nuestro proyecto y desarrollo profesional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nuestros Servicios</h2>
+                <p>Soluciones tecnológicas integrales para el mundo digital moderno</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card fade-in">
+                    <h3>💻 Desarrollo Web</h3>
+                    <p>Creación de aplicaciones web modernas, responsivas y optimizadas. Utilizamos las últimas tecnologías para garantizar rendimiento, accesibilidad y experiencia de usuario excepcional.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>🖥️ Administración de Sistemas</h3>
+                    <p>Configuración, mantenimiento y optimización de infraestructuras tecnológicas. Especialistas en servidores, virtualización y automatización de procesos.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>🌐 Gestión de Redes</h3>
+                    <p>Diseño e implementación de arquitecturas de red seguras y eficientes. Configuración de equipos, protocolos y monitorización de infraestructuras de comunicación.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>🛠️ Soporte Técnico</h3>
+                    <p>Asistencia técnica especializada para resolver problemas complejos y optimizar el rendimiento de sistemas. Soporte proactivo y reactivo 24/7.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>🔒 Seguridad Informática</h3>
+                    <p>Implementación de medidas de seguridad avanzadas para proteger datos e infraestructuras. Auditorías, análisis de vulnerabilidades y respuesta a incidentes.</p>
+                </div>
+                <div class="card fade-in">
+                    <h3>📊 Consultoría IT</h3>
+                    <p>Asesoramiento estratégico para la transformación digital. Análisis de procesos, arquitecturas tecnológicas y planificación de proyectos de modernización.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="multimedia">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Multimedia</h2>
+                <p>Contenido audiovisual de nuestros proyectos y transmisiones en vivo</p>
+            </div>
+            
+            <div class="multimedia-grid">
+                <div class="media-card fade-in">
+                    <div class="media-icon">🎵</div>
+                    <h3>Radio en Vivo</h3>
+                    <p>Escucha nuestra transmisión en vivo con contenido técnico, entrevistas y música seleccionada por nuestro equipo.</p>
+                    
+                    <div class="live-indicator">
+                        <div class="live-dot"></div>
+                        EN VIVO
+                    </div>
+                    
+                    <div class="audio-player">
+                        <audio controls preload="none">
+                            <source src="http://54.236.209.174:8000/live.mp3" type="audio/mpeg">
+                            Tu navegador no soporta el elemento de audio.
+                        </audio>
+                    </div>
+                </div>
+                
+                <div class="media-card fade-in">
+    <div class="media-icon">🎬</div>
+    <h3>Video en Vivo</h3>
+    <p>Transmisión en tiempo real de nuestros proyectos y actividades técnicas destacadas.</p>
+
+    <div class="live-indicator">
+        <div class="live-dot"></div>
+        EN VIVO
+    </div>
+
+    <div class="video-player">
+        <video controls autoplay muted preload="none">
+            <source src="http://54.236.209.174:8000/stream.webm" type="video/webm">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </div>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipo">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nuestro Equipo</h2>
+                <p>Profesionales especializados trabajando juntos hacia la excelencia</p>
+            </div>
+            
+            <!-- Primera fila: CEO y CTO -->
+            <div class="team-grid-bottom">
+                <div class="team-card fade-in">
+                    <div class="ceo-badge">CEO</div>
+                    <div class="team-avatar">J</div>
+                    <h3>Javier V</h3>
+                    <div class="team-role">CEO & Fundador</div>
+                    <p>Visionario líder con experiencia en gestión empresarial y estrategia tecnológica. Responsable de dirigir la visión estratégica de la empresa y liderar la innovación en todos los proyectos.</p>
+                </div>
+                <div class="team-card fade-in">
+                    <div class="team-avatar">R</div>
+                    <h3>Raúl J</h3>
+                    <div class="team-role">CTO & Arquitecto de Sistemas</div>
+                    <p>Experto en arquitecturas tecnológicas complejas y desarrollo de infraestructuras escalables. Lidera la estrategia técnica y supervisa la implementación de soluciones innovadoras.</p>
+                </div>
+            </div>
+
+            <!-- Segunda fila: Alex y Aleix -->
+            <div class="team-grid-bottom">
+                <div class="team-card fade-in">
+                    <div class="team-avatar">A</div>
+                    <h3>Alex J</h3>
+                    <div class="team-role">Desarrollador Full-Stack Senior</div>
+                    <p>Desarrollador experimentado en tecnologías web modernas y aplicaciones empresariales. Especialista en crear interfaces intuitivas y sistemas backend robustos y escalables.</p>
+                </div>
+                <div class="team-card fade-in">
+                    <div class="team-avatar">A</div>
+                    <h3>Aleix T</h3>
+                    <div class="team-role">Ingeniero de Redes & DevOps</div>
+                    <p>Experto en infraestructuras de red y automatización de procesos. Encargado de optimizar la conectividad, implementar CI/CD y mantener la alta disponibilidad de los servicios.</p>
+                </div>
+            </div>
+
+            <!-- Tercera fila: Miquel centrado -->
+            <div style="display: flex; justify-content: center; margin-top: 2rem;">
+                <div class="team-card fade-in" style="max-width: 400px;">
+                    <div class="team-avatar">M</div>
+                    <h3>Miquel S</h3>
+                    <div class="team-role">Especialista en Ciberseguridad</div>
+                    <p>Profesional especializado en seguridad informática y protección de datos. Responsable de implementar y mantener los más altos estándares de seguridad en todos los sistemas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Contacta con Nosotros</h2>
+                <p>Estamos disponibles para colaboraciones y consultas académicas</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>contacto@pro-asixcd-g2.edu<br>info@pro-asixcd-g2.edu</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div>
+                        <h4>Teléfono</h4>
