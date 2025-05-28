@@ -4,15 +4,15 @@
 **Equipo:** Alex Jiménez, Miquel Serra, Javier Vericat, Raúl Juárez, Aleix Tomás.
 
 ## Índice
-1. [Introducción](#introducción)
-2. [Propuesta de CPD](#1-propuesta-de-cpd)
-3. [Implementación de servicios de audio y vídeo](#2-implementación-de-servicios-de-audio-y-vídeo)
-4. [Implementación y diseño de una base de datos](#3-diseño-e-implementación-de-una-base-de-datos)
-5. [Otros servicios](#4-otros-servicios)
-6. [Sostenibilidad](#5-sostenibilidad)
-7. [Conclusión](#conclusión)
+0. [Introducción](#0-introducción)
+1. [Propuesta de CPD](#1-propuesta-de-cpd)
+2. [Implementación de servicios de audio y vídeo](#2-implementación-de-servicios-de-audio-y-vídeo)
+3. [Implementación y diseño de una base de datos](#3--diseño-e-implementación-de-una-base-de-datos)
+4. [Otros servicios](#4-otros-servicios)
+5. [Sostenibilidad](#5--sostenibilidad)
+6. [Conclusión](#6-conclusión)
 
-## Introducción
+## 0. Introducción
 Este proyecto simula la instalación de un pequeño CPD, en el cual hemos desplegado servicios de gestión centralizada de usuarios (LDAP), DNS, backups y servidor web; además de los tres servicios obligatorios: vídeo, audio y base de datos.
 
 Cada miembro del grupo se ha encargado de configurar una instancia de AWS en la que operan los servicios mencionados. Puedes consultar [aquí](#implementació-del-cpd-al-núvol-aws-amb-els-serveis-utilitzats) la distribución de servicios asignados a cada integrante.
@@ -189,7 +189,7 @@ Sistemas configurados con RAID 10, ofreciendo redundancia y altas prestaciones d
 Montaremos estos servicios por cada MV:  
 - MV1 → Servidor de vídeo + audio (Miquel)
 - MV2 → Servidor web (Javier)
-- MV3 → Base de datos (Raul)
+- MV3 → Base de datos (Raúl)
 - MV4 → DNS + autenticación y gestión de usuarios “LDAP” (Alex)
 - MV5 → Backups (Aleix)  
 
@@ -671,7 +671,7 @@ Paneles informativos con consumo energético en tiempo real
 ![grafico1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/grafico1.png)  
 
 
-## Conclusión  
+## 6. Conclusión  
 
 En este proyecto hemos desplegado un CPD virtual distribuido sobre AWS, en el que hemos implementado servicios de gestión centralizada de usuarios (LDAP), resolución de nombres (DNS), base de datos MySQL con copias de seguridad automatizadas mediante crontab y streaming de vídeo y audio reproducidos en una web configurada con NGINX.  
 
