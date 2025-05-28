@@ -572,6 +572,110 @@ ldapadd -x -D "cn=admin,dc=asixcd-g2,dc=local" -W -f usuario.ldif
 
 ### 4.3. 🔐 Servicio de backups  
 
+### Introducción
+
+En este caso nos basamos en hacer copias de seguridad, con la cual haremos la actividad de hacer el backup con la base de datos que tenemos y tambien haremos añadidos extras.
+
+## Requisitos
+
+- Dependerá de si almacenas ficheros localmente o en S3/NFS simulado.
+- Requiere más disco que CPU.
+
+### ✅ Instancia recomendada:
+
+- `t3.small` (1 vCPU, 2 GB RAM) + disco EBS más grande (ej. 100–200 GB), gratuitamente, **AWS nos deja 30 GB**, pero para hacer pruebas está bien de todos modos.
+- Usa S3 si no necesitas persistencia en EBS (ahorras costes y tiempo)
+
+---
+
+## Instalación del cliente MySQL
+
+Vamos a instalar el cliente de **MySQL**, que nos sirve también para hacer backups, ya que también es más accesible y podremos acceder remotamente a la base de datos.
+
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup1.png)
+```bash
+sudo apt install mysql-client
+```
+
+Si nos conectamos con el **host**, **usuario** y **password** correspondiente, de nuestra base de datos nos conectaremos de manera exitosa.
+
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup2.png)
+```bash
+mysql -h 172.16.X.X -u usuario -p
+```
+---
+
+## Crear una copia de seguridad
+
+Ahora vamos a hacer una copia de seguridad de la base de datos `cpd_dg2`.
+
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup3.png)
+```bash
+SHOW DATABASES;
+```
+
+Primero de todo, tenemos que tener **todos los permisos correspondientes**, porque a la hora de hacer la copia de seguridad nos saldrán errores una tras otra.
+
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup4.png)
+```bash
+SHOW GRANTS for usuario;
+```
+
+Esta es la comanda para hacer una copia de seguridad. En resumen quiere decir:
+
+- hacer copia de seguridad
+- con el usuario
+- con password (que nos la pedirá luego)
+- el host o IP
+- seleccionar todas las bases de datos o una en concreto
+- definir la ruta de guardado
+- añadir la fecha en que se hizo la copia
+
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup5.png)
+### 🛠️ Ejemplo de comando:
+
+```bash
+mysqldump -u usuario -p -h host --basedatos nombre_basedatos > /ruta/backup_$(date +%Y-%m-%d).sql
+```
+
+## Comprobacion y añadidos
+
+Para comprobar que se hizo correctamente, buscamos la ubicación del backup, vemos que esta ahi.
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup6.png)
+```bash
+ls -la /ruta/
+```
+
+Vemos que si hacemos si hacemos un nano o un cat del sql, vemos que se hizo correctamente.
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup7.png)
+```bash
+nano /ruta/backup_$(date +%Y-%m-%d).sql
+```
+
+Ademas hemos automatizado la copia de seguriddad con la comanda crontab -e, que automaticamente podremos hacer automatizaciones de todo tipo. En nuestro caso hicimos de esa manera
+
+- hacer copia diárias a kas 23:59h
+- accion correspondiente (mysqldump)
+- seleccionar la base de datos
+- definir la ruta de guardado
+- añadir la fecha en que se hizo la copia
+
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup8.png)
+
+### 🛠️ Ejemplo de comando:
+
+```bash
+59 23 * * * mysqldump --databases nommbre_basedatos > /ruta/backup_$(date +\%F_\%H-\%M-\%S).sql
+```
+
+Esto es un recurso automático que utiliza el usuario, password y host para poder conectar automáticamente cuando hacemos el comando mysql para conectar nuestra base de datos, esto enlaza con él
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup9.png)
+```bash
+[client]
+user=usuario
+password=tucontraseñasegura
+host=172.16.X.X
+```
 
 
 
