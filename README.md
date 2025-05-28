@@ -5,8 +5,8 @@
 
 ## Índice
 0. [Introducción](#0-introducción)  
-1. [Propuesta de CPD](#1-propuesta-de-cpd)  
-2. [Implementación de servicios de audio y vídeo](#2-implementación-de-servicios-de-audio-y-vídeo)  
+1. [Propuesta de CPD](#1--propuesta-de-cpd)  
+2. [Implementación de servicios de audio y vídeo](#2--implementación-de-servicios-de-audio-y-vídeo)  
 3. [Implementación y diseño de una base de datos](#3--diseño-e-implementación-de-una-base-de-datos)  
 4. [Otros servicios](#4-otros-servicios)  
    4.1. [Servidor web (NGINX)](#41--servidor-web-nginx)  
@@ -20,7 +20,7 @@ Este proyecto simula la instalación de un pequeño CPD, en el cual hemos desple
 
 Cada miembro del grupo se ha encargado de configurar una instancia de AWS en la que operan los servicios mencionados. Puedes consultar [aquí](#implementació-del-cpd-al-núvol-aws-amb-els-serveis-utilitzats) la distribución de servicios asignados a cada integrante.
 
-## 1. Propuesta de CPD
+## 1. 🗄️ Propuesta de CPD
 ### Ubicación física
 - **Situación física de la sala del edificio.**  
   La ubicación del CPD será en una planta subterránea, ya que tendrá una temperatura constante durante todo el año y permite aprovechar mejor los sistemas de refrigeración natural.
@@ -215,7 +215,7 @@ Microsoft Azure también ha marcado objetivos muy ambiciosos en materia de soste
 | **Azure**        | 100% (2025)        | Alta (refrigeración líquida) | *Free cooling* + líquida | Azure Monitor       | *Carbon negative* (2030) |
 
 
-## 2. Implementación de servicios de audio y vídeo  
+## 2. 🎛️ Implementación de servicios de audio y vídeo  
 
 ### 2.1. 🎧 Instalación de servidor de audio
 
