@@ -330,11 +330,13 @@ Connecting to host IP_SERVIDOR, port 5201
 
 ## 3. 💽 Diseño e implementación de una base de datos
 
-**Diseño entidad-relación:**
+### 3.1. Diseño entidad-relación:  
 
 ![er](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/er.jpg)  
 
-**Modelo relacional:**  
+---
+
+### 3.2. Modelo relacional:  
 
 DEPARTAMENTO (id, nombre, teléfono)  
 
@@ -344,7 +346,9 @@ EMPLEADO (DNI, nombre, ap1, ap2, dirección, teléfono, idDep, idGrupo)
 
 GRUPO-NIVEL (id, salario, periodoPrueba, diasVacaciones)  
 
-**Implementación en mysql:**  
+---
+
+### 3.3. Implementación en mysql:  
 
 *(para acceder a la db como root entramos con “mysql -u root -p” y la contraseña es “itb”).*  
 ![image3](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/image3.png)  
