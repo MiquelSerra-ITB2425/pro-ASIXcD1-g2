@@ -1,28 +1,23 @@
-# 📘 Documentació
+### Introducción
 
-## 🔹 MV5 — Backups (Aleix)
+En este caso nos basamos en hacer copias de seguridad, a la cual haremos añadidos extras para asi mejorar la activdad del backup.
+
+## Requisitos
 
 - Dependerá de si almacenas ficheros localmente o en S3/NFS simulado.
 - Requiere más disco que CPU.
 
 ### ✅ Instancia recomendada:
 
-- `t3.small` (1 vCPU, 2 GB RAM) + disco EBS más grande (ej. 100–200 GB)
+- `t3.small` (1 vCPU, 2 GB RAM) + disco EBS más grande (ej. 100–200 GB), gratuitamente, **AWS nos deja 30 GB**, pero para hacer pruebas está bien de todos modos.
 - Usa S3 si no necesitas persistencia en EBS (ahorras costes y tiempo)
-
----
-
-## Reglas de seguridad, interior y exterior
-
-Para que sea un buen almacenamiento podríamos tener entre **100-200 GB**, ya que guardaremos **backups de MySQL** que tenemos en la base de datos.
-
-Gratuitamente, **AWS nos deja 30 GB**, pero para hacer pruebas está bien de todos modos.
 
 ---
 
 ## Instalación del cliente MySQL
 
 Vamos a instalar el cliente de **MySQL**, que nos sirve también para hacer backups, ya que también es más accesible y podremos acceder remotamente a la base de datos.
+![backup](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/backup2.png)
 
 Si nos conectamos con el **host**, **usuario** y **password** correspondiente, nos conectaremos de manera exitosa.
 
