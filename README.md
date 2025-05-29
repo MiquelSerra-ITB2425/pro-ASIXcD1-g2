@@ -20,6 +20,8 @@ Este proyecto simula la instalación de un pequeño CPD, en el cual hemos desple
 
 Cada miembro del grupo se ha encargado de configurar una instancia de AWS en la que operan los servicios mencionados. Puedes consultar [aquí](#implementació-del-cpd-al-núvol-aws-amb-els-serveis-utilitzats) la distribución de servicios asignados a cada integrante.
 
+---
+
 ## 1. 🗄 Propuesta de CPD
 ### Ubicación física
 - **Situación física de la sala del edificio.**  
@@ -214,6 +216,7 @@ Microsoft Azure también ha marcado objetivos muy ambiciosos en materia de soste
 | **Google Cloud** | 100% (actualmente) | Muy alta (IA, PUE <1.1)      | Optimizada por IA        | Stackdriver         | Neutro desde 2007        |
 | **Azure**        | 100% (2025)        | Alta (refrigeración líquida) | *Free cooling* + líquida | Azure Monitor       | *Carbon negative* (2030) |
 
+---
 
 ## 2. 🎛 Implementación de servicios de audio y vídeo  
 
@@ -386,7 +389,7 @@ Habilitamos “bind-address” para que cualquier IP pueda conectarse a la datab
 Y con esto cualquier cliente dentro del rango de IPs que permita el security group ya podrá conectarse a la base de datos.  
 ![secgroupDB](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/secgroupDB.png)  
 
---
+---
 
 Creamos distintos usuarios con sus roles y permisos:
 ![db21](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/db21.png)  
@@ -394,6 +397,7 @@ Creamos distintos usuarios con sus roles y permisos:
 Hacemos la prueba con el usuario ‘ifarre’ para comprobar que solo puede hacer ‘select’ en la base de datos y no tiene permiso para realizar un ‘insert’, por ejemplo:
 ![db22](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/db22.png)  
 
+---
 
 ## 4. Otros servicios  
 
@@ -674,7 +678,7 @@ password=tucontraseñasegura
 host=172.16.X.X
 ```
 
-
+---
 
 ## 5. 🌳 Sostenibilidad  
 
@@ -778,6 +782,7 @@ Paneles informativos con consumo energético en tiempo real
 
 ![grafico1](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/grafico1.png)  
 
+---
 
 ## 6. Conclusión  
 
