@@ -12,8 +12,10 @@
    4.1. [Servidor web (NGINX)](#41--servidor-web-nginx)  
    4.2. [Servidor DNS + autenticación y gestión de usuarios (LDAP)](#42--servidor-dns--autenticación-y-gestión-de-usuarios-ldap))  
    4.3. [Servicio de backups](#43--servicio-de-backups)  
-6. [Sostenibilidad](#5--sostenibilidad)  
-7. [Conclusión](#6-conclusión)  
+5. [Sostenibilidad](#5--sostenibilidad)  
+6. [Conclusión](#6-conclusión)  
+
+---
 
 ## 0. Introducción
 Este proyecto simula la instalación de un pequeño CPD, en el cual hemos desplegado servicios de gestión centralizada de usuarios (LDAP), DNS, backups y servidor web; además de los tres servicios obligatorios: vídeo, audio y base de datos.
