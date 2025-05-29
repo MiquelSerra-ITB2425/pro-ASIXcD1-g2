@@ -386,6 +386,15 @@ Habilitamos “bind-address” para que cualquier IP pueda conectarse a la datab
 Y con esto cualquier cliente dentro del rango de IPs que permita el security group ya podrá conectarse a la base de datos.  
 ![secgroupDB](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/secgroupDB.png)  
 
+--
+
+Creamos distintos usuarios con sus roles y permisos:
+![db21](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/db21.png)  
+
+Hacemos la prueba con el usuario ‘ifarre’ para comprobar que solo puede hacer ‘select’ en la base de datos y no tiene permiso para realizar un ‘insert’, por ejemplo:
+![db22](https://github.com/MiquelSerra-ITB2425/pro-ASIXcD1-g2/blob/main/images/db22.png)  
+
+
 ## 4. Otros servicios  
 
 ### 4.1. 🌐 Servidor web (NGINX)  
