@@ -346,13 +346,13 @@ Connecting to host IP_SERVIDOR, port 5201
 
 ### 3.2. Modelo relacional:  
 
-DEPARTAMENTO (id, nombre, teléfono)  
+DEPARTAMENTO (**id**, nombre, teléfono)  
 
-EMPLEADO (DNI, nombre, ap1, ap2, dirección, teléfono, idDep, idGrupo)  
+EMPLEADO (**DNI**, nombre, ap1, ap2, dirección, teléfono, idDep, idGrupo)  
 *idDep referencia a DEPARTAMENTO;*  
 *idGrupo referencia a GRUPO-NIVEL;*  
 
-GRUPO-NIVEL (id, salario, periodoPrueba, diasVacaciones)  
+GRUPO-NIVEL (**id**, salario, periodoPrueba, diasVacaciones)  
 
 ---
 
